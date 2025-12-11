@@ -1,7 +1,29 @@
 import { useState } from "react";
-import { LoginPage, SelectUserTypePage, SignUpPage, VendorSignUpPage, OTPVerificationPage, SignUpSuccessPage, ForgotPasswordPage, CreateNewPasswordPage } from "./src/pages/auth";
+import { Toaster } from "sonner@2.0.3";
 import { DashboardPage } from "./src/pages/user/DashboardPage";
-import { Toaster } from "sonner";
+import { ProfilePage } from "./src/pages/user/ProfilePage";
+import { UserTransactionsPage } from "./src/pages/user/UserTransactionsPage";
+import { HelpSupportPage } from "./src/pages/user/HelpSupportPage";
+import { MessageChatPage } from "./src/pages/user/MessageChatPage";
+import { OverviewPage } from "./src/pages/user/OverviewPage";
+import { SelectUserTypePage } from "./src/pages/auth/SelectUserTypePage";
+import { SignUpPage } from "./src/pages/auth/SignUpPage";
+import { VendorSignUpPage } from "./src/pages/auth/VendorSignUpPage";
+import { OTPVerificationPage } from "./src/pages/auth/OTPVerificationPage";
+import { SignUpSuccessPage } from "./src/pages/auth/SignUpSuccessPage";
+import { LoginPage } from "./src/pages/auth/LoginPage";
+import { ForgotPasswordPage } from "./src/pages/auth/ForgotPasswordPage";
+import { CreateNewPasswordPage } from "./src/pages/auth/CreateNewPasswordPage";
+import { ServiceDetailPage } from "./src/pages/user/ServiceDetailPage";
+import { CampaignsPage } from "./src/pages/user/CampaignsPage";
+import { ViewCampaignDetailPage } from "./src/pages/user/ViewCampaignDetailPage";
+import { VouchersPage } from "./src/pages/user/VouchersPage";
+import { SaveAsDraftPage } from "./src/pages/user/SaveAsDraftPage";
+import { CorporateDashboardPage } from "./src/pages/corporate/CorporateDashboardPage";
+import { CorporateCampaignsPage } from "./src/pages/corporate/CorporateCampaignsPage";
+import { CorporateProfilePage } from "./src/pages/corporate/CorporateProfilePage";
+import { CorporateTransactionsPage } from "./src/pages/corporate/CorporateTransactionsPage";
+import { CorporateDraftsPage } from "./src/pages/corporate/CorporateDraftsPage";
 import "./styles/globals.css";
 
 type Page =
@@ -14,6 +36,7 @@ type Page =
   | "draft"
   | "howItWorks"
   | "campaignDetail"
+  | "viewCampaignDetail"
   | "messaging"
   | "serviceDetail"
   | "selectedServices"
@@ -39,6 +62,10 @@ type Page =
   | "createNewPassword"
   | "vendorDashboard"
   | "corporateDashboard"
+  | "corporateCampaigns"
+  | "corporateProfile"
+  | "corporateTransactions"
+  | "corporateDrafts"
   | "selectUserType";
 
 function App() {
@@ -152,11 +179,109 @@ function App() {
         );
       case "dashboard":
       case "vendorDashboard":
-      case "corporateDashboard":
         return (
           <DashboardPage
             onNavigate={handleNavigate}
             accountType={accountType}
+            onLogout={handleLogout}
+          />
+        );
+      case "corporateDashboard":
+        return (
+          <CorporateDashboardPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "corporateCampaigns":
+        return (
+          <CorporateCampaignsPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "corporateProfile":
+        return (
+          <CorporateProfilePage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "corporateTransactions":
+        return (
+          <CorporateTransactionsPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "corporateDrafts":
+        return (
+          <CorporateDraftsPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "profile":
+        return (
+          <ProfilePage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "transactions":
+        return (
+          <UserTransactionsPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "helpSupport":
+        return (
+          <HelpSupportPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "messaging":
+        return (
+          <MessageChatPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "overview":
+        return (
+          <OverviewPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "serviceDetail":
+        return (
+          <ServiceDetailPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "campaigns":
+        return (
+          <CampaignsPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "campaignDetail":
+      case "viewCampaignDetail":
+        return (
+          <ViewCampaignDetailPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "vouchers":
+        return (
+          <VouchersPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "draft":
+      case "saveDraft":
+        return (
+          <SaveAsDraftPage
+            onNavigate={handleNavigate}
             onLogout={handleLogout}
           />
         );

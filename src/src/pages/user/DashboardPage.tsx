@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
+import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
 import imgKcLogoWhite2Transparent1 from 'figma:asset/4b4bad59041302b06eae37218f1d3bd7c64d7d1e.png';
 import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
@@ -21,6 +22,29 @@ interface DashboardPageProps {
   onSearch?: (query: string) => void;
   onLogout?: () => void;
   accountType?: 'user' | 'vendor' | 'corporate';
+}
+
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+}
+
+function SidebarItem({ icon, label, active, onClick }: SidebarItemProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+        active
+          ? 'bg-[#8363f2] text-white'
+          : 'text-gray-700 hover:bg-gray-100'
+      }`}
+    >
+      <span className="w-5 h-5">{icon}</span>
+      <span className="text-[14px]">{label}</span>
+    </button>
+  );
 }
 
 export function DashboardPage({ 
@@ -100,132 +124,11 @@ export function DashboardPage({
   return (
     <div className="flex min-h-screen bg-white">
       {/* Sidebar */}
-      <div className="w-[240px] bg-white border-r border-gray-300 flex flex-col">
-        {/* Logo */}
-        <div className="p-6 flex items-center justify-center">
-          <img 
-            alt="KC Logo" 
-            className="h-12 w-auto object-contain" 
-            src={imgKcLogoWhite2Transparent1} 
-          />
-        </div>
-
-        {/* Explore Section */}
-        <div className="px-3">
-          <p className="font-['Inter',sans-serif] font-bold text-[11px] text-[#8363f2] px-4 mb-2">
-            Explore
-          </p>
-
-          {/* Dashboard - Active */}
-          <button 
-            onClick={() => onNavigate('dashboard')}
-            className="w-full bg-[#8363f2] flex items-center gap-3 px-4 py-3 rounded-lg mb-1"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <path d={svgPaths.p23320a80} fill="white" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-white">Dashboard</span>
-          </button>
-
-          {/* Campaigns */}
-          <button 
-            onClick={() => onNavigate('campaigns')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <path d={svgPaths.p666ca00} fill="black" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Campaigns</span>
-          </button>
-
-          {/* Vouchers */}
-          <button 
-            onClick={() => onNavigate('vouchers')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <path clipRule="evenodd" d={svgPaths.p3e294900} fill="black" fillRule="evenodd" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Vouchers</span>
-          </button>
-
-          {/* Transactions */}
-          <button 
-            onClick={() => onNavigate('transactions')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 28">
-              <path d={svgPaths.p2187b600} fill="black" opacity="0.8" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Transactions</span>
-          </button>
-
-          {/* Profile */}
-          <button 
-            onClick={() => onNavigate('profile')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <path d={svgPaths.p662940} fill="black" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Profile</span>
-          </button>
-
-          {/* Overview */}
-          <button 
-            onClick={() => onNavigate('overview')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <g>
-                <path d={svgPaths.p1d4ae3f0} fill="white" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                <path d={svgPaths.pbfd1c00} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </g>
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Overview</span>
-          </button>
-
-          {/* Draft */}
-          <button 
-            onClick={() => onNavigate('draft')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <path d={svgPaths.p3754a70} fill="black" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Draft</span>
-          </button>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-gray-300 my-4" />
-
-        {/* Feedback Section */}
-        <div className="px-3 flex-1">
-          <p className="font-['Inter',sans-serif] font-bold text-[11px] text-[#8363f2] px-4 mb-2">
-            Feedback
-          </p>
-
-          {/* Help */}
-          <button 
-            onClick={() => onNavigate('helpSupport')}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Help</span>
-          </button>
-
-          {/* Logout */}
-          <button 
-            onClick={onLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24">
-              <path d={svgPaths.p3591e200} fill="#F63232" />
-            </svg>
-            <span className="font-['Inter',sans-serif] text-[14px] text-[#202020]">Logout</span>
-          </button>
-        </div>
-      </div>
+      <UserSidebar
+        activePage="dashboard"
+        onNavigate={onNavigate}
+        onLogout={onLogout}
+      />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
@@ -375,7 +278,7 @@ export function DashboardPage({
               {serviceProviders.map((provider) => (
                 <button
                   key={provider.id}
-                  onClick={() => toast.success(`Viewing ${provider.name}`)}
+                  onClick={() => onNavigate('serviceDetail')}
                   className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow text-left group"
                 >
                   <div className="h-[160px] w-full overflow-hidden">
