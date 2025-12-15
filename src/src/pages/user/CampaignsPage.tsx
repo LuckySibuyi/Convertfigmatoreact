@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Calendar, AlignJustify } from 'lucide-react@0.487.0';
 import { UserSidebar } from '../../components/layout/UserSidebar';
-import svgPaths from '../../../imports/svg-balext371s';
+import svgPaths from '../../../imports/svg-c93d13tepm';
+import svgPathsSearch from '../../../imports/svg-balext371s';
 import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
 import imgRectangle120 from 'figma:asset/61798ab28bf7b93c89df5d8aaefacc49a0f1de1d.png';
 import imgEllipse34 from 'figma:asset/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png';
@@ -9,90 +10,157 @@ import imgEllipse35 from 'figma:asset/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.p
 import imgEllipse36 from 'figma:asset/14e5699a8399d12dd79e85db4e560c982e664a8c.png';
 import imgEllipse37 from 'figma:asset/7c725d2e94b4ad503c42f0fe908638a5861386b4.png';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport';
+type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport' | 'serviceProviders';
 
 interface CampaignsPageProps {
   onNavigate: (page: Page) => void;
   onLogout?: () => void;
+  onShowNotifications?: () => void;
+  hasUnreadNotifications?: boolean;
+  onShowCart?: () => void;
 }
 
-export function CampaignsPage({ onNavigate, onLogout }: CampaignsPageProps) {
-  const campaigns = [
-    {
-      id: 1,
-      title: 'Cape Town Gateway Weekend',
-      image: imgRectangle115,
-      serviceProvider: 'Seaview Lodge',
-      catering: 'Tasteless Catering',
-      startDate: 'Sep 1',
-      endDate: 'Dec 5, 2025',
-      goal: 10000.00,
-      contributed: 3000.00,
-      members: [imgEllipse34, imgEllipse35, imgEllipse36, imgEllipse37],
-      buttonText: 'Contribute',
-      buttonClass: 'bg-[#2d1b69]'
-    },
-    {
-      id: 2,
-      title: 'Durban Beach Escape',
-      image: imgRectangle120,
-      serviceProvider: 'Seaview Lodge',
-      catering: 'TasteBiles Catering',
-      startDate: 'Sep 1',
-      endDate: 'Dec 5, 2025',
-      goal: 20000.00,
-      contributed: 13000.00,
-      members: [imgEllipse34, imgEllipse35, imgEllipse36, imgEllipse37],
-      buttonText: 'Manage',
-      buttonClass: 'bg-[#2d1b69]'
+interface Campaign {
+  id: number;
+  title: string;
+  image: string;
+  serviceProvider: string;
+  catering?: string;
+  startDate: string;
+  endDate: string;
+  goal: number;
+  contributed: number;
+  members: string[];
+  buttonText: string;
+  buttonClass: string;
+  status?: 'Pending' | 'Approved';
+}
+
+export function CampaignsPage({ onNavigate, onLogout, onShowNotifications, hasUnreadNotifications, onShowCart }: CampaignsPageProps) {
+  // Load campaigns from localStorage
+  const loadCampaigns = (): Campaign[] => {
+    const staticCampaigns: Campaign[] = [
+      {
+        id: 1,
+        title: 'Cape Town Gateway Weekend',
+        image: imgRectangle115,
+        serviceProvider: 'Seaview Lodge',
+        catering: 'Tasteless Catering',
+        startDate: 'Sep 1',
+        endDate: 'Dec 5, 2025',
+        goal: 10000.00,
+        contributed: 3000.00,
+        members: [imgEllipse34, imgEllipse35, imgEllipse36, imgEllipse37],
+        buttonText: 'Contribute',
+        buttonClass: 'bg-[#2d1b69]',
+        status: 'Approved'
+      },
+      {
+        id: 2,
+        title: 'Durban Beach Escape',
+        image: imgRectangle120,
+        serviceProvider: 'Seaview Lodge',
+        catering: 'TasteBiles Catering',
+        startDate: 'Sep 1',
+        endDate: 'Dec 5, 2025',
+        goal: 20000.00,
+        contributed: 13000.00,
+        members: [imgEllipse34, imgEllipse35, imgEllipse36, imgEllipse37],
+        buttonText: 'Manage',
+        buttonClass: 'bg-[#2d1b69]',
+        status: 'Approved'
+      }
+    ];
+
+    const storedCampaigns = localStorage.getItem('activeCampaigns');
+    if (storedCampaigns) {
+      const dynamicCampaigns = JSON.parse(storedCampaigns);
+      return [...dynamicCampaigns, ...staticCampaigns];
     }
-  ];
+    
+    return staticCampaigns;
+  };
+
+  const [campaigns] = useState<Campaign[]>(loadCampaigns());
 
   return (
     <div className="flex h-screen bg-white overflow-hidden">
       {/* Sidebar */}
-      <UserSidebar activePage="campaigns" onNavigate={onNavigate} onLogout={onLogout} />
+      <UserSidebar activePage="campaigns" onNavigate={onNavigate} onLogout={onLogout} onShowNotifications={onShowNotifications} hasUnreadNotifications={hasUnreadNotifications} onShowCart={onShowCart} />
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-y-auto">
-        {/* Header */}
-        <div className="px-8 py-6 border-b border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="relative w-[532px]">
+        {/* Top Navbar */}
+        <div className="h-[60px] bg-white border-b border-gray-300 flex items-center justify-between px-6">
+          {/* Search Bar */}
+          <div className="flex-1 max-w-md">
+            <div className="relative bg-[#f5f5fa] rounded-xl shadow-[inset_2px_2px_4px_rgba(170,170,204,0.25),inset_-2px_-2px_4px_rgba(255,255,255,0.5)]">
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full h-[44px] px-4 pr-12 bg-[#f5f5f5] rounded-[12px] font-['Inter',sans-serif] text-[16px] text-[#868484] outline-none"
+                className="w-full bg-transparent px-4 py-2 font-['SF_Pro_Rounded',sans-serif] text-[#7878ab] text-sm outline-none"
               />
-              <button className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p1c5c03f0} stroke="#868484" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#f5f5fa] rounded-full shadow-[2px_2px_4px_rgba(170,170,204,0.5),-2px_-2px_4px_#ffffff] flex items-center justify-center hover:opacity-80 transition-opacity"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <path clipRule="evenodd" d={svgPaths.p250aca00} fill="#7878AB" fillRule="evenodd" />
                 </svg>
               </button>
             </div>
-            <div className="flex items-center gap-4">
-              <button className="w-[120px] h-[44px] bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[12px] font-['Inter',sans-serif] text-[16px] flex items-center justify-center gap-2 transition-colors">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p19e5f200} fill="white" />
-                </svg>
-                Create
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p280fe110} fill="#414040" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p160e9a00} fill="#414040" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p2a9a6200} fill="#414040" />
-                </svg>
-              </button>
-            </div>
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-4">
+            {/* Create Button */}
+            <button
+              onClick={() => onNavigate('serviceProviders')}
+              className="bg-[#8363f2] hover:bg-[#7354e1] text-white px-6 py-2 rounded-lg font-['Inter',sans-serif] text-[14px] font-medium transition-colors"
+            >
+              Create
+            </button>
+
+            {/* Bell Icon */}
+            <button
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p12cfc680} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+              {hasUnreadNotifications && (
+                <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+              )}
+            </button>
+
+            {/* Shopping Cart Icon */}
+            <button
+              onClick={onShowCart}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p3422b400} fill="#202020" />
+              </svg>
+            </button>
+
+            {/* Profile Avatar */}
+            <button 
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <g clipPath="url(#clip0_8_2090)">
+                  <path d={svgPaths.p10fc6980} fill="black" />
+                  <path d={svgPaths.p1534e400} fill="#EEEEEE" fillOpacity="0.933333" />
+                  <path d={svgPaths.p38192080} fill="#EEEEEE" fillOpacity="0.933333" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_8_2090">
+                    <rect fill="white" height="24" width="24" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -104,7 +172,10 @@ export function CampaignsPage({ onNavigate, onLogout }: CampaignsPageProps) {
               <p className="font-['Inter',sans-serif] text-[14px] text-[#6b7280]">Here are your ongoing campaigns</p>
             </div>
             <div className="flex items-center gap-3">
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <button 
+                onClick={() => onNavigate('campaignSchedule')}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
                 <Calendar size={20} className="text-gray-600" />
               </button>
               <button className="px-4 py-2 flex items-center gap-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
@@ -134,11 +205,22 @@ export function CampaignsPage({ onNavigate, onLogout }: CampaignsPageProps) {
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h2 className="font-['Inter',sans-serif] text-[18px] font-semibold text-black mb-1">{campaign.title}</h2>
+                        <div className="flex items-center gap-3 mb-1">
+                          <h2 className="font-['Inter',sans-serif] text-[18px] font-semibold text-black">{campaign.title}</h2>
+                          {campaign.status && (
+                            <span className={`px-3 py-1 rounded-full font-['Inter',sans-serif] text-[12px] font-medium ${
+                              campaign.status === 'Pending' 
+                                ? 'bg-[#fef3c7] text-[#92400e]' 
+                                : 'bg-[#d1fae5] text-[#065f46]'
+                            }`}>
+                              {campaign.status}
+                            </span>
+                          )}
+                        </div>
                         <p className="font-['Inter',sans-serif] text-[12px] text-[#6b7280]">Service Provider</p>
                       </div>
                       <button
-                        onClick={() => onNavigate('viewCampaignDetail')}
+                        onClick={() => onNavigate(campaign.buttonText === 'Contribute' ? 'contribute' : 'viewCampaignDetail')}
                         className={`${campaign.buttonClass} hover:opacity-90 text-white px-6 py-2 rounded-[8px] font-['Inter',sans-serif] text-[14px] font-medium transition-opacity`}
                       >
                         {campaign.buttonText}

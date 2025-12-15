@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Star, ShoppingCart } from 'lucide-react@0.487.0';
+import { Star } from 'lucide-react@0.487.0';
 import { UserSidebar } from '../../components/layout/UserSidebar';
+import { RoomBookingDialog } from '../../components/dialogs/RoomBookingDialog';
+import { CartDialog } from '../../components/dialogs/CartDialog';
+import { toast } from 'sonner@2.0.3';
 import svgPaths from '../../../imports/svg-ogzm8o1tic';
 import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
 import imgRectangle148 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
@@ -72,6 +75,9 @@ export function ServiceDetailPage({
 }: ServiceDetailPageProps) {
   const [activeTab, setActiveTab] = useState<'rooms' | 'food' | 'transport' | 'activities' | 'terms'>('rooms');
   const [bookedItems, setBookedItems] = useState<BookedItem[]>(cartItems);
+  const [showBookingDialog, setShowBookingDialog] = useState(false);
+  const [showCartDialog, setShowCartDialog] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
 
   // Use service data or default values
   const serviceName = service?.name || 'Cape Town Gateway Weekend';
@@ -97,24 +103,87 @@ export function ServiceDetailPage({
   ];
 
   const handleBookRoom = (room: Room) => {
-    const newBooking: BookedItem = {
-      id: Date.now(),
-      type: 'room',
-      name: room.name,
-      price: room.price,
-      provider: serviceName,
-      image: room.image,
-      quantity: 1,
-    };
-    const updatedItems = [...bookedItems, newBooking];
+    setSelectedRoom(room);
+    setShowBookingDialog(true);
+  };
+
+  const handleBookingComplete = (checkIn?: string, checkOut?: string, quantity?: number) => {
+    if (selectedRoom && checkIn && checkOut && quantity) {
+      // Calculate nights
+      const checkInDate = new Date(checkIn);
+      const checkOutDate = new Date(checkOut);
+      const nights = Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
+      
+      // Calculate total price
+      const pricePerNight = parseFloat(selectedRoom.price.replace('R', '').replace(/\s/g, ''));
+      const totalPrice = pricePerNight * nights * quantity;
+      
+      const newBooking: BookedItem = {
+        id: Date.now(),
+        type: 'room',
+        name: selectedRoom.name,
+        price: selectedRoom.price,
+        checkIn,
+        checkOut,
+        provider: serviceName,
+        image: selectedRoom.image,
+        quantity,
+        nights,
+        totalPrice,
+      };
+      
+      const updatedItems = [...bookedItems, newBooking];
+      setBookedItems(updatedItems);
+      if (onUpdateCart) {
+        onUpdateCart(updatedItems);
+      }
+      
+      toast.success(`Booked ${quantity} ${selectedRoom.name}${quantity > 1 ? 's' : ''} for ${nights} ${nights === 1 ? 'night' : 'nights'}!`);
+      setShowBookingDialog(false);
+      setSelectedRoom(null);
+    }
+  };
+
+  const handleRemoveItem = (itemId: number) => {
+    const updatedItems = bookedItems.filter(item => item.id !== itemId);
     setBookedItems(updatedItems);
     if (onUpdateCart) {
       onUpdateCart(updatedItems);
     }
+    toast.success('Item removed from cart');
   };
 
-  const handleCampaigns = () => {
+  const handleEditItem = (itemId: number) => {
+    const item = bookedItems.find(i => i.id === itemId);
+    if (item && item.type === 'room') {
+      // Find the room and reopen the booking dialog
+      const room = rooms.find(r => r.name === item.name);
+      if (room) {
+        // Remove the item first
+        handleRemoveItem(itemId);
+        // Then open the booking dialog
+        setSelectedRoom(room);
+        setShowBookingDialog(true);
+      }
+    }
+  };
+
+  const handleNavigateToTerms = () => {
+    setShowCartDialog(false);
+    setActiveTab('terms');
+  };
+
+  const handleCreateCampaign = () => {
+    setShowCartDialog(false);
     onNavigate('createCampaign');
+  };
+
+  const handleViewCart = () => {
+    if (bookedItems.length > 0) {
+      setShowCartDialog(true);
+    } else {
+      toast.info('Your cart is empty');
+    }
   };
 
   return (
@@ -127,7 +196,7 @@ export function ServiceDetailPage({
         {/* Header */}
         <div className="px-8 py-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h1 className="font-['Inter',sans-serif] text-[20px] font-medium text-black tracking-[-0.2px]">Select Services</h1>
+            <h1 className="font-['Inter',sans-serif] text-[20px] font-medium text-black tracking-[-0.2px]\">Select Services</h1>
             <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
                 <path d={svgPaths.p280fe110} fill="#414040" />
@@ -352,10 +421,22 @@ export function ServiceDetailPage({
         </div>
       </div>
 
+      {/* Room Booking Dialog */}
+      {selectedRoom && (
+        <RoomBookingDialog
+          open={showBookingDialog}
+          onOpenChange={setShowBookingDialog}
+          roomName={selectedRoom.name}
+          roomPrice={selectedRoom.price}
+          onBookingComplete={handleBookingComplete}
+          bookingType="room"
+        />
+      )}
+
       {/* Floating Campaigns Button */}
       <div className="fixed bottom-6 right-6">
         <button
-          onClick={handleCampaigns}
+          onClick={handleViewCart}
           className="bg-[#8363f2] hover:bg-[#7354e1] text-white shadow-lg rounded-lg px-6 py-3 flex items-center gap-2 relative transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 32 32">
@@ -369,6 +450,18 @@ export function ServiceDetailPage({
           )}
         </button>
       </div>
+
+      {/* Cart Dialog */}
+      <CartDialog
+        open={showCartDialog}
+        onOpenChange={setShowCartDialog}
+        items={bookedItems}
+        onRemoveItem={handleRemoveItem}
+        onEditItem={handleEditItem}
+        onContinue={handleCreateCampaign}
+        serviceName={serviceName}
+        onNavigateToTerms={handleNavigateToTerms}
+      />
     </div>
   );
 }

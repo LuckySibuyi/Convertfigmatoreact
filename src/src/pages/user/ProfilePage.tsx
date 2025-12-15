@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import imgCoverPhoto from 'figma:asset/026a3c798370c1809b56f85f64931dc6993c6027.png';
-import imgEllipse45 from 'figma:asset/1a2305dbf685fe839ddb89accfcb91ad8e3ec824.png';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
@@ -11,12 +9,19 @@ import { toast } from 'sonner@2.0.3';
 import Cropper from 'react-easy-crop';
 import { Point, Area } from 'react-easy-crop';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard';
+// Default images
+const defaultCoverPhoto = 'https://images.unsplash.com/photo-1596549969402-30040dc1d4b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHByb2Zlc3Npb25hbCUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzY1Nzk0Nzg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral';
+const defaultProfilePhoto = 'https://images.unsplash.com/photo-1595436222774-4b1cd819aada?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwZXJzb24lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjU3NDQ5MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral';
+
+type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
 interface ProfilePageProps {
   className?: string;
   onNavigate: (page: Page) => void;
   onLogout?: () => void;
+  onShowNotifications?: () => void;
+  hasUnreadNotifications?: boolean;
+  onShowCart?: () => void;
 }
 
 interface PersonalInfo {
@@ -40,13 +45,13 @@ interface BillingDetails {
   cvv: string;
 }
 
-export function ProfilePage({ className, onNavigate, onLogout }: ProfilePageProps) {
+export function ProfilePage({ className, onNavigate, onLogout, onShowNotifications, hasUnreadNotifications, onShowCart }: ProfilePageProps) {
   const [showEditPersonalInfo, setShowEditPersonalInfo] = useState(false);
   const [showEditSecurity, setShowEditSecurity] = useState(false);
   const [showUploadPhoto, setShowUploadPhoto] = useState(false);
   const [showBankDetails, setShowBankDetails] = useState(false);
   const [profilePhotoKey, setProfilePhotoKey] = useState(Date.now());
-  const [currentPhoto, setCurrentPhoto] = useState<string>(imgEllipse45);
+  const [currentPhoto, setCurrentPhoto] = useState<string>(defaultProfilePhoto);
   
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     fullNames: 'Vukona revalation',
@@ -83,7 +88,7 @@ export function ProfilePage({ className, onNavigate, onLogout }: ProfilePageProp
   // Calculate profile completion
   const profileCompletion = useMemo(() => {
     let setupAccount = personalInfo.email ? 34 : 0;
-    let uploadPhoto = currentPhoto !== imgEllipse45 ? 5 : 0;
+    let uploadPhoto = currentPhoto !== defaultProfilePhoto ? 5 : 0;
     let personalInformation = 0;
     if (personalInfo.fullNames) personalInformation += 15;
     if (personalInfo.surname) personalInformation += 15;
@@ -217,7 +222,7 @@ export function ProfilePage({ className, onNavigate, onLogout }: ProfilePageProp
   return (
     <div className="flex min-h-screen bg-white">
       {/* Sidebar */}
-      <UserSidebar activePage="profile" onNavigate={onNavigate} onLogout={onLogout} />
+      <UserSidebar activePage="profile" onNavigate={onNavigate} onLogout={onLogout} onShowNotifications={onShowNotifications} hasUnreadNotifications={hasUnreadNotifications} onShowCart={onShowCart} />
 
       {/* Main Content */}
       <div className="flex-1 bg-[#f5f5f5] overflow-auto">
@@ -225,7 +230,7 @@ export function ProfilePage({ className, onNavigate, onLogout }: ProfilePageProp
         <div className="relative">
           <div className="h-[180px] bg-gray-200 relative overflow-hidden">
             <img 
-              src={imgCoverPhoto} 
+              src={defaultCoverPhoto} 
               alt="Cover" 
               className="w-full h-full object-cover"
             />
@@ -243,7 +248,7 @@ export function ProfilePage({ className, onNavigate, onLogout }: ProfilePageProp
               alt="Profile" 
               className="w-full h-full object-cover"
               onError={(e) => {
-                e.currentTarget.src = imgEllipse45;
+                e.currentTarget.src = defaultProfilePhoto;
               }}
             />
             {/* Edit Profile Photo Button */}

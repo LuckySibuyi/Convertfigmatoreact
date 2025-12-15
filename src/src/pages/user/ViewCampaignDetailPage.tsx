@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
-import svgPaths from '../../../imports/svg-b7s8fpxdl4';
+import svgPaths from '../../../imports/svg-c93d13tepm';
+import svgPathsOld from '../../../imports/svg-b7s8fpxdl4';
 import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
 import imgRectangle140 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
 import imgRectangle141 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
@@ -8,14 +9,17 @@ import imgEllipse34 from 'figma:asset/e44d5cd688ebcf29969455cdd422abc0ede80023.p
 import imgEllipse35 from 'figma:asset/4b26bfd150174ba0370dd3bfeef0c80dcb584d88.png';
 import imgEllipse36 from 'figma:asset/d770c99e932e76eba63bc37ec25fdba69d4b4874.png';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport';
+type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport' | 'serviceProviders';
 
 interface ViewCampaignDetailPageProps {
   onNavigate: (page: Page) => void;
   onLogout?: () => void;
+  onShowNotifications?: () => void;
+  hasUnreadNotifications?: boolean;
+  onShowCart?: () => void;
 }
 
-export function ViewCampaignDetailPage({ onNavigate, onLogout }: ViewCampaignDetailPageProps) {
+export function ViewCampaignDetailPage({ onNavigate, onLogout, onShowNotifications, hasUnreadNotifications, onShowCart }: ViewCampaignDetailPageProps) {
   const [searchEmail, setSearchEmail] = useState('');
 
   const members = [
@@ -42,48 +46,81 @@ export function ViewCampaignDetailPage({ onNavigate, onLogout }: ViewCampaignDet
   return (
     <div className="flex h-screen bg-white overflow-hidden">
       {/* Sidebar */}
-      <UserSidebar activePage="campaigns" onNavigate={onNavigate} onLogout={onLogout} />
+      <UserSidebar activePage="campaigns" onNavigate={onNavigate} onLogout={onLogout} onShowNotifications={onShowNotifications} hasUnreadNotifications={hasUnreadNotifications} onShowCart={onShowCart} />
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-y-auto bg-[#f9fafb]">
-        {/* Header */}
-        <div className="px-8 py-4 bg-white border-b border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="relative w-[532px]">
+        {/* Top Navbar */}
+        <div className="h-[60px] bg-white border-b border-gray-300 flex items-center justify-between px-6">
+          {/* Search Bar */}
+          <div className="flex-1 max-w-md">
+            <div className="relative bg-[#f5f5fa] rounded-xl shadow-[inset_2px_2px_4px_rgba(170,170,204,0.25),inset_-2px_-2px_4px_rgba(255,255,255,0.5)]">
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full h-[44px] px-4 pr-12 bg-[#f5f5f5] rounded-[12px] font-['Inter',sans-serif] text-[16px] text-[#868484] outline-none"
+                className="w-full bg-transparent px-4 py-2 font-['SF_Pro_Rounded',sans-serif] text-[#7878ab] text-sm outline-none"
               />
-              <button className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p1c5c03f0} stroke="#868484" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#f5f5fa] rounded-full shadow-[2px_2px_4px_rgba(170,170,204,0.5),-2px_-2px_4px_#ffffff] flex items-center justify-center hover:opacity-80 transition-opacity"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <path clipRule="evenodd" d={svgPaths.p250aca00} fill="#7878AB" fillRule="evenodd" />
                 </svg>
               </button>
             </div>
-            <div className="flex items-center gap-4">
-              <button className="w-[120px] h-[44px] bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[12px] font-['Inter',sans-serif] text-[16px] flex items-center justify-center gap-2 transition-colors">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p19e5f200} fill="white" />
-                </svg>
-                Create
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p280fe110} fill="#414040" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p160e9a00} fill="#414040" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                  <path d={svgPaths.p2a9a6200} fill="#414040" />
-                </svg>
-              </button>
-            </div>
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-4">
+            {/* Create Button */}
+            <button
+              onClick={() => onNavigate('serviceProviders')}
+              className="bg-[#8363f2] hover:bg-[#7354e1] text-white px-6 py-2 rounded-lg font-['Inter',sans-serif] text-[14px] font-medium transition-colors"
+            >
+              Create
+            </button>
+
+            {/* Bell Icon */}
+            <button
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p12cfc680} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+              {hasUnreadNotifications && (
+                <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+              )}
+            </button>
+
+            {/* Shopping Cart Icon */}
+            <button
+              onClick={onShowCart}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p3422b400} fill="#202020" />
+              </svg>
+            </button>
+
+            {/* Profile Avatar */}
+            <button 
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <g clipPath="url(#clip0_8_2090)">
+                  <path d={svgPaths.p10fc6980} fill="black" />
+                  <path d={svgPaths.p1534e400} fill="#EEEEEE" fillOpacity="0.933333" />
+                  <path d={svgPaths.p38192080} fill="#EEEEEE" fillOpacity="0.933333" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_8_2090">
+                    <rect fill="white" height="24" width="24" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -192,7 +229,10 @@ export function ViewCampaignDetailPage({ onNavigate, onLogout }: ViewCampaignDet
           <div className="bg-white rounded-[16px] p-6 mb-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-['Inter',sans-serif] text-[24px] font-semibold text-black">Members</h2>
-              <button className="px-6 py-2 bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[8px] font-['Inter',sans-serif] text-[14px] font-medium transition-colors">
+              <button 
+                onClick={() => onNavigate('contributors')}
+                className="px-6 py-2 bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[8px] font-['Inter',sans-serif] text-[14px] font-medium transition-colors"
+              >
                 Campaign performance
               </button>
             </div>

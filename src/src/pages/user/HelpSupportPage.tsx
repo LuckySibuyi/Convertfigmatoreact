@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, MessageSquare } from 'lucide-react@0.487.0';
 import { UserSidebar } from '../../components/layout/UserSidebar';
+import svgPaths from '../../../imports/svg-c93d13tepm';
+import { ChevronDown, ChevronUp, MessageSquare } from 'lucide-react@0.487.0';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'messageChat' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'myCampaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'viewCampaignDetail' | 'serviceProviders' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'vendorProfile' | 'vendorCampaigns' | 'vendorServices' | 'vendorTransactions' | 'vendorOverview' | 'vendorDrafts' | 'vendorHelp' | 'vendorInvoice' | 'vendorReport' | 'approveBookingRequest' | 'editBooking' | 'corporateDashboard' | 'corporateCampaigns' | 'corporateProfile' | 'corporateCampaignDetail' | 'corporateSchedule' | 'corporateTransactions' | 'corporateVouchers' | 'corporateOverview' | 'corporateDrafts' | 'corporateHelp' | 'corporateGoalsTracker' | 'corporateTransactionsTable';
+type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
 interface HelpSupportPageProps {
   onNavigate: (page: Page) => void;
   onLogout?: () => void;
+  onShowNotifications?: () => void;
+  hasUnreadNotifications?: boolean;
+  onShowCart?: () => void;
 }
 
 interface SidebarItemProps {
@@ -62,7 +66,7 @@ const guides = [
   { id: 4, title: 'Transaction insights' },
 ];
 
-export function HelpSupportPage({ onNavigate, onLogout }: HelpSupportPageProps) {
+export function HelpSupportPage({ onNavigate, onLogout, onShowNotifications, hasUnreadNotifications, onShowCart }: HelpSupportPageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(1);
 
   const toggleFaq = (id: number) => {
@@ -76,69 +80,77 @@ export function HelpSupportPage({ onNavigate, onLogout }: HelpSupportPageProps) 
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Navigation Bar */}
-        <div className="bg-white border-b border-gray-200 px-8 py-4">
-          <div className="flex items-center justify-between">
-            {/* Left: Back Arrow */}
-            <button 
-              onClick={() => onNavigate('dashboard')}
+        {/* Top Navbar */}
+        <div className="h-[60px] bg-white border-b border-gray-300 flex items-center justify-between px-6">
+          {/* Search Bar */}
+          <div className="flex-1 max-w-md">
+            <div className="relative bg-[#f5f5fa] rounded-xl shadow-[inset_2px_2px_4px_rgba(170,170,204,0.25),inset_-2px_-2px_4px_rgba(255,255,255,0.5)]">
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-full bg-transparent px-4 py-2 font-['SF_Pro_Rounded',sans-serif] text-[#7878ab] text-sm outline-none"
+              />
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#f5f5fa] rounded-full shadow-[2px_2px_4px_rgba(170,170,204,0.5),-2px_-2px_4px_#ffffff] flex items-center justify-center hover:opacity-80 transition-opacity"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <path clipRule="evenodd" d={svgPaths.p250aca00} fill="#7878AB" fillRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-4">
+            {/* Create Button */}
+            <button
+              onClick={() => onNavigate('serviceProviders')}
+              className="bg-[#8363f2] hover:bg-[#7354e1] text-white px-6 py-2 rounded-lg font-['Inter',sans-serif] text-[14px] font-medium transition-colors"
+            >
+              Create
+            </button>
+
+            {/* Bell Icon */}
+            <button
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p12cfc680} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+              {hasUnreadNotifications && (
+                <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+              )}
+            </button>
+
+            {/* Shopping Cart Icon */}
+            <button
+              onClick={onShowCart}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p3422b400} fill="#202020" />
               </svg>
             </button>
 
-            {/* Center: Search */}
-            <div className="flex-1 max-w-md mx-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:ring-2 focus:ring-[#8363f2] focus:border-transparent"
-                />
-                <svg
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-            </div>
-
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-4 ml-6">
-              {/* Create Button */}
-              <button className="bg-[#8363f2] text-white px-4 py-2 rounded-lg text-[14px] hover:bg-[#7354e1] transition-colors flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                Create
-              </button>
-
-              {/* Notifications */}
-              <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-              </button>
-
-              {/* Cart */}
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </button>
-
-              {/* Profile */}
-              <button className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">
-                <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </button>
-            </div>
+            {/* Profile Avatar */}
+            <button 
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <g clipPath="url(#clip0_8_2090)">
+                  <path d={svgPaths.p10fc6980} fill="black" />
+                  <path d={svgPaths.p1534e400} fill="#EEEEEE" fillOpacity="0.933333" />
+                  <path d={svgPaths.p38192080} fill="#EEEEEE" fillOpacity="0.933333" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_8_2090">
+                    <rect fill="white" height="24" width="24" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
           </div>
         </div>
 

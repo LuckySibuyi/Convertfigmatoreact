@@ -1,18 +1,24 @@
 import { UserSidebar } from '../../components/layout/UserSidebar';
-import svgPaths from '../../../imports/svg-qxgvifls4i';
+import svgPaths from '../../../imports/svg-c93d13tepm';
+import svgPathsOld from '../../../imports/svg-qxgvifls4i';
 import imgRectangle149 from 'figma:asset/c3da0b093907ae1f1f073f5b5b081f4b60182725.png';
 import imgRectangle491 from 'figma:asset/b8f358508256be2f2d88edd8037f9c1c992b7ef0.png';
 import imgRectangle498 from 'figma:asset/4f3cf17b509ff91a3ab3bb07631643b028d47067.png';
+import { useState, useEffect } from 'react';
+import { toast } from 'sonner@2.0.3';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'vendorDashboard' | 'corporateDashboard' | 'selectUserType';
+type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'vendorDashboard' | 'corporateDashboard' | 'selectUserType' | 'serviceProviders';
 
 interface SaveAsDraftPageProps {
   onNavigate: (page: Page) => void;
   onLogout?: () => void;
+  onShowNotifications?: () => void;
+  hasUnreadNotifications?: boolean;
+  onShowCart?: () => void;
 }
 
-export function SaveAsDraftPage({ onNavigate, onLogout }: SaveAsDraftPageProps) {
-  const drafts = [
+export function SaveAsDraftPage({ onNavigate, onLogout, onShowNotifications, hasUnreadNotifications, onShowCart }: SaveAsDraftPageProps) {
+  const initialDrafts = [
     {
       id: 1,
       title: 'Magalies park gateway weekend',
@@ -54,52 +60,145 @@ export function SaveAsDraftPage({ onNavigate, onLogout }: SaveAsDraftPageProps) 
     },
   ];
 
+  const [drafts, setDrafts] = useState(initialDrafts);
+
+  // Load drafts from localStorage on mount
+  useEffect(() => {
+    const savedDrafts = localStorage.getItem('savedDrafts');
+    if (savedDrafts) {
+      try {
+        const parsedDrafts = JSON.parse(savedDrafts);
+        // Merge saved drafts with initial mock drafts
+        setDrafts([...parsedDrafts, ...initialDrafts]);
+      } catch (error) {
+        console.error('Error loading saved drafts:', error);
+      }
+    }
+  }, []);
+
+  const handleDeleteDraft = (id: number, title: string) => {
+    // Remove the draft from the list
+    setDrafts(prevDrafts => prevDrafts.filter(draft => draft.id !== id));
+    
+    // Also remove from localStorage if it's a saved draft
+    const savedDrafts = localStorage.getItem('savedDrafts');
+    if (savedDrafts) {
+      try {
+        const parsedDrafts = JSON.parse(savedDrafts);
+        const updatedDrafts = parsedDrafts.filter((draft: any) => draft.id !== id);
+        localStorage.setItem('savedDrafts', JSON.stringify(updatedDrafts));
+      } catch (error) {
+        console.error('Error updating saved drafts:', error);
+      }
+    }
+    
+    toast.success(`"${title}" has been deleted`, {
+      duration: 3000,
+    });
+  };
+
+  const handleContinueEditing = (draft: any) => {
+    // Store the draft data in localStorage so the campaign creation page can pick it up
+    localStorage.setItem('continueEditingDraft', JSON.stringify({
+      id: draft.id,
+      title: draft.title,
+      serviceProvider: draft.serviceProvider,
+      goal: draft.goal,
+      members: draft.members,
+      step: draft.step,
+      totalSteps: draft.totalSteps,
+      progress: draft.progress,
+      formData: draft.formData, // Include form data if available
+    }));
+    
+    toast.success(`Continuing "${draft.title}"`, {
+      duration: 2000,
+    });
+    
+    // Navigate to campaign creation page
+    setTimeout(() => {
+      onNavigate('createCampaign');
+    }, 500);
+  };
+
   return (
     <div className="flex h-screen bg-white overflow-hidden">
       {/* Sidebar */}
-      <UserSidebar activePage="draft" onNavigate={onNavigate} onLogout={onLogout} />
+      <UserSidebar activePage="draft" onNavigate={onNavigate} onLogout={onLogout} onShowNotifications={onShowNotifications} hasUnreadNotifications={hasUnreadNotifications} onShowCart={onShowCart} />
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-y-auto bg-white">
-        {/* Header */}
-        <div className="px-8 py-4 bg-white border-b border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="relative w-[240px]">
+        {/* Top Navbar */}
+        <div className="h-[60px] bg-white border-b border-gray-300 flex items-center justify-between px-6">
+          {/* Search Bar */}
+          <div className="flex-1 max-w-md">
+            <div className="relative bg-[#f5f5fa] rounded-xl shadow-[inset_2px_2px_4px_rgba(170,170,204,0.25),inset_-2px_-2px_4px_rgba(255,255,255,0.5)]">
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full h-[40px] pl-4 pr-10 bg-[#f5f5f5] rounded-[8px] font-['Inter',sans-serif] text-[14px] text-[#9ca3af] outline-none border-none"
+                className="w-full bg-transparent px-4 py-2 font-['SF_Pro_Rounded',sans-serif] text-[#7878ab] text-sm outline-none"
               />
-              <button className="absolute right-3 top-1/2 -translate-y-1/2">
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#f5f5fa] rounded-full shadow-[2px_2px_4px_rgba(170,170,204,0.5),-2px_-2px_4px_#ffffff] flex items-center justify-center hover:opacity-80 transition-opacity"
+              >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                  <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M21 21L16.65 16.65" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path clipRule="evenodd" d={svgPaths.p250aca00} fill="#7878AB" fillRule="evenodd" />
                 </svg>
               </button>
             </div>
-            <div className="flex items-center gap-3">
-              <button className="h-[40px] px-4 bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[8px] font-['Inter',sans-serif] text-[14px] font-medium flex items-center justify-center gap-2 transition-colors">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                  <path d="M12 5v14M5 12h14" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                </svg>
-                Create
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" fill="#000000" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <path d="M3 3h7l2 4h8a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V3z" fill="#000000"/>
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" fill="#000000" />
-                </svg>
-              </button>
-            </div>
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-4">
+            {/* Create Button */}
+            <button
+              onClick={() => onNavigate('serviceProviders')}
+              className="bg-[#8363f2] hover:bg-[#7354e1] text-white px-6 py-2 rounded-lg font-['Inter',sans-serif] text-[14px] font-medium transition-colors"
+            >
+              Create
+            </button>
+
+            {/* Bell Icon */}
+            <button
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p12cfc680} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+              {hasUnreadNotifications && (
+                <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+              )}
+            </button>
+
+            {/* Shopping Cart Icon */}
+            <button
+              onClick={onShowCart}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <path d={svgPaths.p3422b400} fill="#202020" />
+              </svg>
+            </button>
+
+            {/* Profile Avatar */}
+            <button 
+              onClick={onShowNotifications}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                <g clipPath="url(#clip0_8_2090)">
+                  <path d={svgPaths.p10fc6980} fill="black" />
+                  <path d={svgPaths.p1534e400} fill="#EEEEEE" fillOpacity="0.933333" />
+                  <path d={svgPaths.p38192080} fill="#EEEEEE" fillOpacity="0.933333" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_8_2090">
+                    <rect fill="white" height="24" width="24" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -215,15 +314,15 @@ export function SaveAsDraftPage({ onNavigate, onLogout }: SaveAsDraftPageProps) 
                     {/* Action Buttons */}
                     <div className="flex items-center gap-2">
                       <button 
-                        onClick={() => onNavigate('campaigns')}
-                        className="h-[32px] px-4 bg-white border border-[#d1d5db] rounded-[6px] font-['Inter',sans-serif] text-[12px] text-[#374151] hover:bg-gray-50 transition-colors"
+                        onClick={() => handleContinueEditing(draft)}
+                        className="h-[32px] px-4 bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[6px] font-['Inter',sans-serif] text-[12px] transition-colors"
                       >
-                        Back
-                      </button>
-                      <button className="h-[32px] px-4 bg-[#8363f2] hover:bg-[#7354e1] text-white rounded-[6px] font-['Inter',sans-serif] text-[12px] transition-colors">
                         Continue editing
                       </button>
-                      <button className="h-[32px] px-4 bg-white border border-[#fca5a5] text-[#dc2626] rounded-[6px] font-['Inter',sans-serif] text-[12px] hover:bg-[#fef2f2] transition-colors">
+                      <button 
+                        onClick={() => handleDeleteDraft(draft.id, draft.title)}
+                        className="h-[32px] px-4 bg-white border border-[#fca5a5] text-[#dc2626] rounded-[6px] font-['Inter',sans-serif] text-[12px] hover:bg-[#fef2f2] transition-colors"
+                      >
                         Delete Draft
                       </button>
                     </div>

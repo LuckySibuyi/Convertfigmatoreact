@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Toaster } from "sonner@2.0.3";
 import { DashboardPage } from "./src/pages/user/DashboardPage";
+import { FirstTimeUserDashboard } from "./src/pages/user/FirstTimeUserDashboard";
 import { ProfilePage } from "./src/pages/user/ProfilePage";
 import { UserTransactionsPage } from "./src/pages/user/UserTransactionsPage";
 import { HelpSupportPage } from "./src/pages/user/HelpSupportPage";
@@ -19,12 +20,37 @@ import { CampaignsPage } from "./src/pages/user/CampaignsPage";
 import { ViewCampaignDetailPage } from "./src/pages/user/ViewCampaignDetailPage";
 import { VouchersPage } from "./src/pages/user/VouchersPage";
 import { SaveAsDraftPage } from "./src/pages/user/SaveAsDraftPage";
+import { SelectServiceProviderPage } from "./src/pages/user/SelectServiceProviderPage";
+import { SelectedServicesPage } from "./src/pages/user/SelectedServicesPage";
+import { CampaignCreationPage } from "./src/pages/user/CampaignCreationPage";
 import { CorporateDashboardPage } from "./src/pages/corporate/CorporateDashboardPage";
 import { CorporateCampaignsPage } from "./src/pages/corporate/CorporateCampaignsPage";
 import { CorporateProfilePage } from "./src/pages/corporate/CorporateProfilePage";
 import { CorporateTransactionsPage } from "./src/pages/corporate/CorporateTransactionsPage";
 import { CorporateDraftsPage } from "./src/pages/corporate/CorporateDraftsPage";
+import { ServiceProvidersPage } from "./src/pages/user/ServiceProvidersPage";
+import { CampaignCreationFlowPage } from "./src/pages/user/CampaignCreationFlowPage";
+import { ContributorsPage } from "./src/pages/user/ContributorsPage";
+import { ContributorDetailPage } from "./src/pages/user/ContributorDetailPage";
+import { CampaignSchedulePage } from "./src/pages/user/CampaignSchedulePage";
+import { CampaignsHistoryPage } from "./src/pages/user/CampaignsHistoryPage";
+import { ContributePage } from "./src/pages/user/ContributePage";
 import "./styles/globals.css";
+
+interface BookedItem {
+  id: number;
+  type: 'room' | 'food' | 'transport' | 'activity';
+  name: string;
+  price: string;
+  checkIn?: string;
+  checkOut?: string;
+  location?: string;
+  provider?: string;
+  image?: string;
+  quantity?: number;
+  nights?: number;
+  totalPrice?: number;
+}
 
 type Page =
   | "dashboard"
@@ -53,6 +79,7 @@ type Page =
   | "helpSupport"
   | "saveDraft"
   | "selectServices"
+  | "serviceProviders"
   | "signup"
   | "vendorSignup"
   | "otpVerification"
@@ -73,6 +100,8 @@ function App() {
   const [accountType, setAccountType] = useState<"user" | "vendor" | "corporate">("corporate");
   const [userEmail, setUserEmail] = useState<string>("");
   const [isPasswordResetFlow, setIsPasswordResetFlow] = useState<boolean>(false);
+  const [cartItems, setCartItems] = useState<BookedItem[]>([]);
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState<boolean>(true);
 
   const handleNavigate = (page: Page) => {
     // Track if we're entering password reset flow
@@ -81,6 +110,12 @@ function App() {
     } else if (page === 'login' || page === 'vendorSignup') {
       setIsPasswordResetFlow(false);
     }
+    
+    // Dismiss first-time view when user navigates away from dashboard
+    if (currentPage === 'dashboard' && page !== 'dashboard' && isFirstTimeUser) {
+      setIsFirstTimeUser(false);
+    }
+    
     setCurrentPage(page);
   };
 
@@ -106,6 +141,19 @@ function App() {
     console.log("Login:", { email, password, type });
     setAccountType(type);
     setUserEmail(email);
+    
+    // Check if this is a first-time user
+    const hasVisitedBefore = localStorage.getItem(`hasVisited_${email}`);
+    if (!hasVisitedBefore) {
+      setIsFirstTimeUser(true);
+      localStorage.setItem(`hasVisited_${email}`, 'true');
+    } else {
+      setIsFirstTimeUser(false);
+    }
+  };
+
+  const handleDismissFirstTimeView = () => {
+    setIsFirstTimeUser(false);
   };
 
   const handleLogout = () => {
@@ -113,6 +161,7 @@ function App() {
     setCurrentPage("selectUserType");
     setAccountType("corporate");
     setUserEmail("");
+    setIsFirstTimeUser(true);
   };
 
   const renderPage = () => {
@@ -179,6 +228,16 @@ function App() {
         );
       case "dashboard":
       case "vendorDashboard":
+        // Show first-time user dashboard for new users
+        if (isFirstTimeUser && accountType === "user" && currentPage === "dashboard") {
+          return (
+            <FirstTimeUserDashboard
+              onDismiss={handleDismissFirstTimeView}
+              onNavigate={handleNavigate}
+              onLogout={handleLogout}
+            />
+          );
+        }
         return (
           <DashboardPage
             onNavigate={handleNavigate}
@@ -254,6 +313,9 @@ function App() {
         return (
           <ServiceDetailPage
             onNavigate={handleNavigate}
+            cartItems={cartItems}
+            onUpdateCart={setCartItems}
+            onLogout={handleLogout}
           />
         );
       case "campaigns":
@@ -281,6 +343,62 @@ function App() {
       case "saveDraft":
         return (
           <SaveAsDraftPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "serviceProviders":
+        return (
+          <ServiceProvidersPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "selectServices":
+        return (
+          <SelectedServicesPage
+            onNavigate={handleNavigate}
+          />
+        );
+      case "createCampaign":
+        return (
+          <CampaignCreationFlowPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+            cartItems={cartItems}
+          />
+        );
+      case "contributors":
+        return (
+          <ContributorsPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "contributorDetail":
+        return (
+          <ContributorDetailPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "campaignSchedule":
+        return (
+          <CampaignSchedulePage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "campaignsHistory":
+        return (
+          <CampaignsHistoryPage
+            onNavigate={handleNavigate}
+            onLogout={handleLogout}
+          />
+        );
+      case "contribute":
+        return (
+          <ContributePage
             onNavigate={handleNavigate}
             onLogout={handleLogout}
           />

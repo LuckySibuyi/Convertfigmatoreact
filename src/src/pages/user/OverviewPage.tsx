@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Calendar } from 'lucide-react@0.487.0';
 import { UserSidebar } from '../../components/layout/UserSidebar';
-import svgPaths from '../../../imports/svg-c7dw9fhoda';
-import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
+import svgPaths from '../../../imports/svg-c93d13tepm';
+import svgPathsOld from '../../../imports/svg-c7dw9fhoda';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport';
+type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport' | 'serviceProviders';
 
 interface Campaign {
   id: string;
@@ -41,9 +41,37 @@ export function OverviewPage({
 
   // Mock campaigns data for now - you can replace this with actual data later
   useEffect(() => {
-    // For now, display empty state
-    // You can integrate with your campaign storage system later
-    setCampaigns([]);
+    // Sample campaigns with different statuses
+    const sampleCampaigns: Campaign[] = [
+      {
+        id: '1',
+        title: 'Gold Reef City Weekend',
+        image: 'https://images.unsplash.com/photo-1567735744796-dc3a54c2e78d?w=800',
+        status: 'Active',
+        dateRange: 'Sep 1 - Dec 5, 2025',
+        goal: 10000,
+        progress: 5
+      },
+      {
+        id: '2',
+        title: 'Protea Hotel weekend',
+        image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800',
+        status: 'Completed',
+        dateRange: 'Sep 1 - Dec 5, 2025',
+        goal: 45000,
+        progress: 100
+      },
+      {
+        id: '3',
+        title: 'Durban South Beach Trip',
+        image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800',
+        status: 'Upcoming',
+        dateRange: 'Sep 1 - Dec 5, 2025',
+        goal: 10000,
+        progress: 0
+      }
+    ];
+    setCampaigns(sampleCampaigns);
   }, []);
 
   const getStatusStyles = (status: string) => {
@@ -85,8 +113,8 @@ export function OverviewPage({
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col bg-white overflow-hidden">
-        {/* Header */}
-        <div className="h-[104px] bg-white border-b border-gray-200 flex items-center justify-between px-8 flex-shrink-0">
+        {/* Top Navbar */}
+        <div className="h-[60px] bg-white border-b border-gray-300 flex items-center justify-between px-6">
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="flex-1 max-w-md">
             <div className="relative bg-[#f5f5fa] rounded-xl shadow-[inset_2px_2px_4px_rgba(170,170,204,0.25),inset_-2px_-2px_4px_rgba(255,255,255,0.5)]">
@@ -112,12 +140,9 @@ export function OverviewPage({
           <div className="flex items-center gap-4">
             {/* Create Button */}
             <button
-              onClick={() => onNavigate('createCampaign')}
-              className="bg-[#8363f2] hover:bg-[#7354e1] text-white px-6 py-3 rounded-lg font-['Inter',sans-serif] text-[16px] font-normal transition-colors flex items-center gap-2"
+              onClick={() => onNavigate('serviceProviders')}
+              className="bg-[#8363f2] hover:bg-[#7354e1] text-white px-6 py-2 rounded-lg font-['Inter',sans-serif] text-[14px] font-medium transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.pb95a080} fill="white" />
-              </svg>
               Create
             </button>
 
@@ -144,15 +169,22 @@ export function OverviewPage({
               </svg>
             </button>
 
-            {/* Profile Icon */}
-            <button
-              onClick={() => onNavigate('profile')}
+            {/* Profile Avatar */}
+            <button 
+              onClick={onShowNotifications}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.p10fc6980} fill="black" />
-                <path d={svgPaths.p1534e400} fill="#EEEEEE" fillOpacity="0.933333" />
-                <path d={svgPaths.p38192080} fill="#EEEEEE" fillOpacity="0.933333" />
+                <g clipPath="url(#clip0_8_2090)">
+                  <path d={svgPaths.p10fc6980} fill="black" />
+                  <path d={svgPaths.p1534e400} fill="#EEEEEE" fillOpacity="0.933333" />
+                  <path d={svgPaths.p38192080} fill="#EEEEEE" fillOpacity="0.933333" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_8_2090">
+                    <rect fill="white" height="24" width="24" />
+                  </clipPath>
+                </defs>
               </svg>
             </button>
           </div>
@@ -197,7 +229,7 @@ export function OverviewPage({
                   >
                     {/* Campaign Image */}
                     <div className="relative h-[180px] overflow-hidden">
-                      <ImageWithFallback
+                      <img
                         src={campaign.image}
                         alt={campaign.title}
                         className={`w-full h-full object-cover ${isDeclined ? 'grayscale' : ''}`}
