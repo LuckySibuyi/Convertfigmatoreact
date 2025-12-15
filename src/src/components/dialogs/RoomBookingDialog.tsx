@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Plus, Minus } from 'lucide-react@0.487.0';
-import { toast } from 'sonner@2.0.3';
+import { ChevronLeft, ChevronRight, Plus, Minus } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface RoomBookingDialogProps {
   open: boolean;

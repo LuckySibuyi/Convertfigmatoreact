@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
-import imgRectangle143 from 'figma:asset/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png';
-import imgRectangle138 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
-import imgRectangle144 from 'figma:asset/9f1f8c1da3629502bc71901baf4363bbeeeff080.png';
-import imgRectangle139 from 'figma:asset/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png';
-import imgRectangle145 from 'figma:asset/09008cafd958ef228fae370333984be464a418ff.png';
+//import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import imgRectangle143 from 'figma:asset/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png';
+//import imgRectangle138 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
+//import imgRectangle144 from 'figma:asset/9f1f8c1da3629502bc71901baf4363bbeeeff080.png';
+//import imgRectangle139 from 'figma:asset/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png';
+//import imgRectangle145 from 'figma:asset/09008cafd958ef228fae370333984be464a418ff.png';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
@@ -36,42 +36,42 @@ export function ServiceProvidersPage({
       name: 'Blue Water Hotel',
       location: 'Durban',
       category: 'accommodation',
-      image: imgRectangle143
+      image: '/assets/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png'
     },
     {
       id: '2',
       name: 'Lekkeslaap',
       location: 'Durban',
       category: 'food service & Motel',
-      image: imgRectangle144
+      image: '/assets/9f1f8c1da3629502bc71901baf4363bbeeeff080.png'
     },
     {
       id: '3',
       name: 'Cape town Beach',
       location: 'Cape town',
       category: 'Accommodation',
-      image: imgRectangle145
+      image: '/assets/09008cafd958ef228fae370333984be464a418ff.png'
     },
     {
       id: '4',
       name: 'Seaview Lodge',
       location: 'Cape town',
       category: 'accomodation',
-      image: imgRectangle137
+      image: '/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'
     },
     {
       id: '5',
       name: 'Tastebites catering',
       location: 'Durban',
       category: 'food service',
-      image: imgRectangle138
+      image: '/assets/87102388d503206b3b0fb177ad63642a9945094b.png'
     },
     {
       id: '6',
       name: 'Island paradise',
       location: 'Zanzibar',
       category: 'Accommodation',
-      image: imgRectangle139
+      image: '/assets/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png'
     }
   ];
 

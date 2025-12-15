@@ -1,13 +1,13 @@
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import svgPathsOld from '../../../imports/svg-qxgvifls4i';
-import imgRectangle149 from 'figma:asset/c3da0b093907ae1f1f073f5b5b081f4b60182725.png';
-import imgRectangle491 from 'figma:asset/b8f358508256be2f2d88edd8037f9c1c992b7ef0.png';
-import imgRectangle498 from 'figma:asset/4f3cf17b509ff91a3ab3bb07631643b028d47067.png';
+//import svgPathsOld from '../../../imports/svg-qxgvifls4i';
+//import imgRectangle149 from 'figma:asset/c3da0b093907ae1f1f073f5b5b081f4b60182725.png';
+//import imgRectangle491 from 'figma:asset/b8f358508256be2f2d88edd8037f9c1c992b7ef0.png';
+//import imgRectangle498 from 'figma:asset/4f3cf17b509ff91a3ab3bb07631643b028d47067.png';
 import { useState, useEffect } from 'react';
-import { toast } from 'sonner@2.0.3';
-
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'vendorDashboard' | 'corporateDashboard' | 'selectUserType' | 'serviceProviders';
+import { toast } from 'sonner';
+import type { Page } from '../../types/navigation';
+//type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'vendorDashboard' | 'corporateDashboard' | 'selectUserType' | 'serviceProviders';
 
 interface SaveAsDraftPageProps {
   onNavigate: (page: Page) => void;
@@ -22,7 +22,7 @@ export function SaveAsDraftPage({ onNavigate, onLogout, onShowNotifications, has
     {
       id: 1,
       title: 'Magalies park gateway weekend',
-      image: imgRectangle149,
+      image: '/assets/c3da0b093907ae1f1f073f5b5b081f4b60182725.png',
       rating: 2,
       reviews: 24,
       serviceProvider: 'Magalies Hotel',
@@ -35,7 +35,7 @@ export function SaveAsDraftPage({ onNavigate, onLogout, onShowNotifications, has
     {
       id: 2,
       title: 'Magalies park gateway weekend',
-      image: imgRectangle491,
+      image: '/assets/b8f358508256be2f2d88edd8037f9c1c992b7ef0.png',
       rating: 2,
       reviews: 24,
       serviceProvider: 'Magalies Hotel',
@@ -48,7 +48,7 @@ export function SaveAsDraftPage({ onNavigate, onLogout, onShowNotifications, has
     {
       id: 3,
       title: 'Gold reef city team building',
-      image: imgRectangle498,
+      image: '/assets/4f3cf17b509ff91a3ab3bb07631643b028d47067.png',
       rating: 5,
       reviews: 100,
       serviceProvider: 'Magalies Hotel',

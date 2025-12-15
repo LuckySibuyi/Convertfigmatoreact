@@ -1,8 +1,8 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
 import { Button } from '../../../components/ui/button';
-import { Check } from 'lucide-react@0.487.0';
-
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'corporateDashboard' | 'corporateCampaigns';
+import { Check } from 'lucide-react';
+import type { Page } from '../../types/navigation';
+//type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'corporateDashboard' | 'corporateCampaigns';
 
 interface CampaignSubmittedDialogProps {
   open: boolean;
@@ -17,7 +17,7 @@ export function CampaignSubmittedDialog({
   onNavigate,
   userType = 'user' 
 }: CampaignSubmittedDialogProps) {
-  
+   
   const handleGotIt = () => {
     onOpenChange(false);
     onNavigate(userType === 'corporate' ? 'corporateCampaigns' : 'campaigns');

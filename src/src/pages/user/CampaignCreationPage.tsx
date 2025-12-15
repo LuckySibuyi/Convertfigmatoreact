@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import { CampaignSubmittedDialog } from '../../components/dialogs/CampaignSubmittedDialog';
-import { Calendar, Users, Target } from 'lucide-react@0.487.0';
-import { toast } from 'sonner@2.0.3';
-
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport';
+import { Calendar, Users, Target } from 'lucide-react';
+import { toast } from 'sonner';
+import type { Page } from '../../types/navigation';
 
 interface BookedItem {
   id: number;

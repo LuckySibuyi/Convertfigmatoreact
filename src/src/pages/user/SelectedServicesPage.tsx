@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { Trash2, MapPin } from 'lucide-react@0.487.0';
-import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
-import { toast, Toaster } from 'sonner@2.0.3';
+import { Trash2, MapPin } from 'lucide-react';
+//import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
+import { toast, Toaster } from 'sonner';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import svgPathsOld from '../../../imports/svg-yz68h60k91';
-import imgRoom1 from 'figma:asset/50b9941bb18b04433a8da878785acb0358877f72.png';
-import imgRoom2 from 'figma:asset/840a8d2b23fcae6efd3c33d28ca3649c5eda74ed.png';
-import imgBus from 'figma:asset/703a3a22134188eeed9837e5755d43d8e16d5f2f.png';
+//import svgPathsOld from '../../../imports/svg-yz68h60k91';
+//import imgRoom1 from 'figma:asset/50b9941bb18b04433a8da878785acb0358877f72.png';
+//import imgRoom2 from 'figma:asset/840a8d2b23fcae6efd3c33d28ca3649c5eda74ed.png';
+//import imgBus from 'figma:asset/703a3a22134188eeed9837e5755d43d8e16d5f2f.png';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'messageChat' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'myCampaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'viewCampaignDetail' | 'serviceProviders' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'vendorProfile' | 'vendorCampaigns' | 'vendorServices' | 'vendorTransactions' | 'vendorOverview' | 'vendorDrafts' | 'vendorHelp' | 'vendorInvoice' | 'vendorReport' | 'approveBookingRequest' | 'editBooking' | 'corporateDashboard' | 'corporateCampaigns' | 'corporateProfile' | 'corporateCampaignDetail' | 'corporateSchedule' | 'corporateTransactions' | 'corporateVouchers' | 'corporateOverview' | 'corporateDrafts' | 'corporateHelp' | 'corporateGoalsTracker' | 'corporateTransactionsTable';
 
@@ -39,7 +39,7 @@ export function SelectedServicesPage({ onNavigate, onShowNotifications, hasUnrea
       provider: 'Seaview lodge',
       category: 'Accommodation',
       price: 2500,
-      image: imgRoom1
+      image: '/assets/50b9941bb18b04433a8da878785acb0358877f72.png'
     },
     {
       id: 2,
@@ -48,7 +48,7 @@ export function SelectedServicesPage({ onNavigate, onShowNotifications, hasUnrea
       provider: 'Tastebites catering',
       category: 'Food',
       price: 750,
-      image: imgRoom2
+      image: '/assets/840a8d2b23fcae6efd3c33d28ca3649c5eda74ed.png'
     },
     {
       id: 3,
@@ -57,7 +57,7 @@ export function SelectedServicesPage({ onNavigate, onShowNotifications, hasUnrea
       provider: 'Ride Africa Trans',
       category: 'Transport',
       price: 3750,
-      image: imgBus
+      image: '/assets/703a3a22134188eeed9837e5755d43d8e16d5f2f.png'
     }
   ]);
 

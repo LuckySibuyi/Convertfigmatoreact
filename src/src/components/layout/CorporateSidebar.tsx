@@ -1,5 +1,5 @@
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import imgKcLogoWhite2Transparent1 from 'figma:asset/4b4bad59041302b06eae37218f1d3bd7c64d7d1e.png';
+//import imgKcLogoWhite2Transparent1 from '/../../assets/4b4bad59041302b06eae37218f1d3bd7c64d7d1e.png';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'corporateCampaigns' | 'corporateVouchers' | 'corporateTransactions' | 'corporateProfile' | 'corporateOverview' | 'corporateDrafts' | 'corporateHelp';
 
@@ -40,7 +40,7 @@ export function CorporateSidebar({ activePage, onNavigate, onLogout }: Corporate
         <img 
           alt="KC Logo" 
           className="h-12 w-auto object-contain" 
-          src={imgKcLogoWhite2Transparent1} 
+          src={'/assets/4b4bad59041302b06eae37218f1d3bd7c64d7d1e.png'} 
         />
       </div>
 

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
-import { toast } from 'sonner@2.0.3';
-import { Calendar, Plus, X } from 'lucide-react@0.487.0';
-import imgRectangle140 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
-import imgRectangle141 from 'figma:asset/2cd0806b75ceaec4ce1353812cc2f2eb82fde8f2.png';
-import imgRectangle142 from 'figma:asset/6a4cb1a71759404169c3e112082d2c3714560afd.png';
-import imgEllipse34 from 'figma:asset/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png';
-import imgEllipse35 from 'figma:asset/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.png';
-import imgEllipse36 from 'figma:asset/14e5699a8399d12dd79e85db4e560c982e664a8c.png';
+import { toast } from 'sonner';
+import { Calendar, Plus, X } from 'lucide-react';
+//import imgRectangle140 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import imgRectangle141 from 'figma:asset/2cd0806b75ceaec4ce1353812cc2f2eb82fde8f2.png';
+//import imgRectangle142 from 'figma:asset/6a4cb1a71759404169c3e112082d2c3714560afd.png';
+//import imgEllipse34 from 'figma:/assets/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png';
+//import imgEllipse35 from 'figma:/assets/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.png';
+//import imgEllipse36 from 'figma:/assets/14e5699a8399d12dd79e85db4e560c982e664a8c.png';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
+import type { Page } from '../../types/navigation';
+//type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
 interface BookedItem {
   id: number;
@@ -61,18 +61,18 @@ export function CampaignCreationFlowPage({
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [selectedServices, setSelectedServices] = useState([
-    { id: 1, name: 'Seaview Lodge', location: 'Cape Town', category: 'Accommodation Standard Room', image: imgRectangle140 },
-    { id: 2, name: 'Water Boat Tour', location: 'Cape town front Beach', category: 'Boat Tour', image: imgRectangle141 },
-    { id: 3, name: 'Safari Car Tour', location: 'Cape Town Game Reserve', category: 'Western cape', image: imgRectangle142 }
+    { id: 1, name: 'Seaview Lodge', location: 'Cape Town', category: 'Accommodation Standard Room', image: '/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png' },
+    { id: 2, name: 'Water Boat Tour', location: 'Cape town front Beach', category: 'Boat Tour', image: '/assets/2cd0806b75ceaec4ce1353812cc2f2eb82fde8f2.png'  },
+    { id: 3, name: 'Safari Car Tour', location: 'Cape Town Game Reserve', category: 'Western cape', image: '/assets/6a4cb1a71759404169c3e112082d2c3714560afd.png' }
   ]);
   
   // Step 2: Plan Contributions
   const [targetAmount, setTargetAmount] = useState('');
   const [contributionFrequency, setContributionFrequency] = useState('Monthly');
   const [members, setMembers] = useState<Member[]>([
-    { id: '1', name: 'Alice', avatar: imgEllipse34 },
-    { id: '2', name: 'John', avatar: imgEllipse35 },
-    { id: '3', name: 'Jabulani', avatar: imgEllipse36 }
+    { id: '1', name: 'Alice', avatar: '/assets/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png' },
+    { id: '2', name: 'John', avatar: '/assets/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.png' },
+    { id: '3', name: 'Jabulani', avatar: '/assets/14e5699a8399d12dd79e85db4e560c982e664a8c.png' }
   ]);
   const [searchMember, setSearchMember] = useState('');
   const [campaignTerms, setCampaignTerms] = useState('');
@@ -161,7 +161,7 @@ export function CampaignCreationFlowPage({
     const newDraft = {
       id: Date.now(),
       title: campaignName || 'Untitled Campaign',
-      image: selectedServices[0]?.image || imgRectangle140,
+      image: selectedServices[0]?.image || '/asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png',
       rating: 4,
       reviews: 24,
       serviceProvider: selectedServices[0]?.name || 'Service Provider',
@@ -201,7 +201,7 @@ export function CampaignCreationFlowPage({
     const newCampaign = {
       id: Date.now(),
       title: campaignName,
-      image: selectedServices[0]?.image || imgRectangle140,
+      image: selectedServices[0]?.image || '/asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png',
       serviceProvider: selectedServices[0]?.name || 'Service Provider',
       catering: selectedServices[1]?.name || '',
       startDate: startDate,
@@ -250,7 +250,7 @@ export function CampaignCreationFlowPage({
       const newMember: Member = {
         id: Date.now().toString(),
         name: searchMember,
-        avatar: imgEllipse34
+        avatar: '/assets/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png'
       };
       setMembers([...members, newMember]);
       setSearchMember('');
@@ -849,7 +849,7 @@ export function CampaignCreationFlowPage({
                 <div className="space-y-4">
                   <div className="grid grid-cols-4 gap-4 items-center">
                     <div className="flex items-center gap-3">
-                      <img src={imgRectangle140} alt="Seaview Lodge" className="w-[60px] h-[48px] rounded-[8px] object-cover" />
+                      <img src={'/asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'} alt="Seaview Lodge" className="w-[60px] h-[48px] rounded-[8px] object-cover" />
                       <p className="font-['Inter',sans-serif] text-[14px] text-black">Seaview Lodge</p>
                     </div>
                     <p className="font-['Inter',sans-serif] text-[14px] text-black">Accommodation</p>
@@ -859,7 +859,7 @@ export function CampaignCreationFlowPage({
 
                   <div className="grid grid-cols-4 gap-4 items-center">
                     <div className="flex items-center gap-3">
-                      <img src={imgRectangle141} alt="Water Boat Tour" className="w-[60px] h-[48px] rounded-[8px] object-cover" />
+                      <img src={'/assets/2cd0806b75ceaec4ce1353812cc2f2eb82fde8f2.png'} alt="Water Boat Tour" className="w-[60px] h-[48px] rounded-[8px] object-cover" />
                       <p className="font-['Inter',sans-serif] text-[14px] text-black">Water Boat Tou</p>
                     </div>
                     <p className="font-['Inter',sans-serif] text-[14px] text-black">Activity</p>
@@ -869,7 +869,7 @@ export function CampaignCreationFlowPage({
 
                   <div className="grid grid-cols-4 gap-4 items-center">
                     <div className="flex items-center gap-3">
-                      <img src={imgRectangle142} alt="Safari Car Tour" className="w-[60px] h-[48px] rounded-[8px] object-cover" />
+                      <img src={'/assets/14e5699a8399d12dd79e85db4e560c982e664a8c.png'} alt="Safari Car Tour" className="w-[60px] h-[48px] rounded-[8px] object-cover" />
                       <p className="font-['Inter',sans-serif] text-[14px] text-black">Safari Car Tour</p>
                     </div>
                     <p className="font-['Inter',sans-serif] text-[14px] text-black">Activity</p>
@@ -890,7 +890,7 @@ export function CampaignCreationFlowPage({
                 {/* Accommodation Service */}
                 <div className="mb-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-3 mb-4">
-                    <img src={imgRectangle140} alt="Seaview Lodge" className="w-[80px] h-[64px] rounded-[8px] object-cover" />
+                    <img src={'/asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'} alt="Seaview Lodge" className="w-[80px] h-[64px] rounded-[8px] object-cover" />
                     <div>
                       <h3 className="font-['Inter',sans-serif] text-[16px] font-semibold text-black">Seaview Lodge</h3>
                       <p className="font-['Inter',sans-serif] text-[13px] text-[#6b7280]">Cape Town • Accommodation</p>
@@ -941,7 +941,7 @@ export function CampaignCreationFlowPage({
                 {/* Transport Service */}
                 <div className="mb-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-3 mb-4">
-                    <img src={imgRectangle142} alt="Safari Car Tour" className="w-[80px] h-[64px] rounded-[8px] object-cover" />
+                    <img src={'/assets/6a4cb1a71759404169c3e112082d2c3714560afd.png'} alt="Safari Car Tour" className="w-[80px] h-[64px] rounded-[8px] object-cover" />
                     <div>
                       <h3 className="font-['Inter',sans-serif] text-[16px] font-semibold text-black">Safari Car Tour</h3>
                       <p className="font-['Inter',sans-serif] text-[13px] text-[#6b7280]">Cape Town Game Reserve • Transport</p>
@@ -992,7 +992,7 @@ export function CampaignCreationFlowPage({
                 {/* Activity Service */}
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <img src={imgRectangle141} alt="Water Boat Tour" className="w-[80px] h-[64px] rounded-[8px] object-cover" />
+                    <img src={'/assets/2cd0806b75ceaec4ce1353812cc2f2eb82fde8f2.png'} alt="Water Boat Tour" className="w-[80px] h-[64px] rounded-[8px] object-cover" />
                     <div>
                       <h3 className="font-['Inter',sans-serif] text-[16px] font-semibold text-black">Water Boat Tour</h3>
                       <p className="font-['Inter',sans-serif] text-[13px] text-[#6b7280]">Cape Town Front Beach • Activity</p>

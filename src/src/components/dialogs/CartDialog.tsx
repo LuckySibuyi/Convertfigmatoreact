@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
 import { Button } from '../../../components/ui/button';
-import { Trash2, MapPin, Edit2 } from 'lucide-react@0.487.0';
+import { Trash2, MapPin, Edit2 } from 'lucide-react';
 import { Badge } from '../../../components/ui/badge';
 import { useState, useEffect } from 'react';
 

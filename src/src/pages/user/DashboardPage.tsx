@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import imgKcLogoWhite2Transparent1 from 'figma:asset/4b4bad59041302b06eae37218f1d3bd7c64d7d1e.png';
-import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
-import imgRectangle143 from 'figma:asset/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png';
-import imgRectangle138 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
-import imgRectangle144 from 'figma:asset/9f1f8c1da3629502bc71901baf4363bbeeeff080.png';
-import imgRectangle139 from 'figma:asset/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png';
-import imgRectangle145 from 'figma:asset/09008cafd958ef228fae370333984be464a418ff.png';
-import imgRectangle349 from 'figma:asset/a3825e566b26b37668a63ccc1ccf01de1ed9f478.png';
+//import imgKcLogoWhite2Transparent1 from 'figma:asset/4b4bad59041302b06eae37218f1d3bd7c64d7d1e.png';
+//import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import imgRectangle143 from 'figma:asset/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png';
+//import imgRectangle138 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
+//import imgRectangle144 from 'figma:asset/9f1f8c1da3629502bc71901baf4363bbeeeff080.png';
+//import imgRectangle139 from 'figma:asset/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png';
+//import imgRectangle145 from 'figma:asset/09008cafd958ef228fae370333984be464a418ff.png';
+//import imgRectangle349 from 'figma:asset/a3825e566b26b37668a63ccc1ccf01de1ed9f478.png';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
@@ -66,21 +66,21 @@ export function DashboardPage({
       name: 'Blue Water Hotel',
       location: 'Durban',
       category: 'Accommodation',
-      image: imgRectangle349
+      image: '/assets/a3825e566b26b37668a63ccc1ccf01de1ed9f478.png'
     },
     {
       id: 2,
       name: 'Seaview Lodge',
       location: 'Cape Town',
       category: 'Accommodation',
-      image: imgRectangle137
+      image: '/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'
     },
     {
       id: 3,
       name: 'Island Paradise',
       location: 'Zanzibar',
       category: 'Accommodation',
-      image: imgRectangle139
+      image: '/assets/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png'
     }
   ];
 

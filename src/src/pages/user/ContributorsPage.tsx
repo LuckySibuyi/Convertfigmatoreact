@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { Search, Filter, Users } from 'lucide-react@0.487.0';
+import { Search, Filter, Users } from 'lucide-react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import { RemoveContributorDialog } from '../../components/dialogs/RemoveContributorDialog';
 import { ReplaceContributorDialog } from '../../components/dialogs/ReplaceContributorDialog';
 import { RefundContributorDialog } from '../../components/dialogs/RefundContributorDialog';
-import svgPaths from '../../../imports/svg-c93d13tepm';
-import imgEllipse81 from 'figma:asset/a38e09f349af3cdf8495e0f6372c393c37a6f63a.png';
-import imgEllipse95 from 'figma:asset/9f04bb2572ad50fe735025822908a2a8e26f385f.png';
-import imgEllipse104 from 'figma:asset/8728437952d5fa1c460c00bc34d1eadd9a0faa94.png';
+//import svgPaths from '../../../imports/svg-c93d13tepm';
+//import imgEllipse81 from 'figma:asset/a38e09f349af3cdf8495e0f6372c393c37a6f63a.png';
+//import imgEllipse95 from 'figma:asset/9f04bb2572ad50fe735025822908a2a8e26f385f.png';
+//import imgEllipse104 from 'figma:asset/8728437952d5fa1c460c00bc34d1eadd9a0faa94.png';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
+import type { Page } from '../../types/navigation';
+//type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
 interface ContributorsPageProps {
   onNavigate: (page: Page) => void;
@@ -55,7 +56,7 @@ export function ContributorsPage({
     {
       id: 1,
       name: 'Devine Bila',
-      avatar: imgEllipse81,
+      avatar: '/assets/a38e09f349af3cdf8495e0f6372c393c37a6f63a.png',
       status: 'On Track',
       progress: 74,
       goal: 5000,
@@ -66,7 +67,7 @@ export function ContributorsPage({
     {
       id: 2,
       name: 'Matimu SA',
-      avatar: imgEllipse95,
+      avatar: '/assets/9f04bb2572ad50fe735025822908a2a8e26f385f.png',
       status: 'Completed',
       progress: 100,
       goal: 5000,
@@ -77,7 +78,7 @@ export function ContributorsPage({
     {
       id: 3,
       name: 'Devine Bila',
-      avatar: imgEllipse104,
+      avatar: '/assets/8728437952d5fa1c460c00bc34d1eadd9a0faa94.png',
       status: 'Critical',
       progress: 65,
       goal: 5000,
@@ -88,7 +89,7 @@ export function ContributorsPage({
     {
       id: 4,
       name: 'Devine Bila',
-      avatar: imgEllipse81,
+      avatar: '/assets/a38e09f349af3cdf8495e0f6372c393c37a6f63a.png',
       status: 'On Track',
       progress: 74,
       goal: 5000,
@@ -99,7 +100,7 @@ export function ContributorsPage({
     {
       id: 5,
       name: 'Devine Bila',
-      avatar: imgEllipse95,
+      avatar: '/assets/9f04bb2572ad50fe735025822908a2a8e26f385f.png',
       status: 'On Track',
       progress: 74,
       goal: 5000,
@@ -110,7 +111,7 @@ export function ContributorsPage({
     {
       id: 6,
       name: 'Devine Bila',
-      avatar: imgEllipse104,
+      avatar: '/assets/8728437952d5fa1c460c00bc34d1eadd9a0faa94.png',
       status: 'On Track',
       progress: 74,
       goal: 5000,

@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { ChevronLeft, Star, MapPin, X } from 'lucide-react@0.487.0';
-import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
-import { toast, Toaster } from 'sonner@2.0.3';
+import { ChevronLeft, Star, MapPin, X } from 'lucide-react';
+//import { ImageWithFallback } from '../../components/figma/ImageWithFallback';
+import { toast, Toaster } from 'sonner';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import svgPathsOld from '../../../imports/svg-3xpzfvvnmj';
-import imgServiceBanner from 'figma:asset/51e22403a8c34ebbdff4bd2ae4062a63b119e9b5.png';
-import imgRoom1 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
-import imgRoom2 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import svgPathsOld from '../../../imports/svg-3xpzfvvnmj';
+//import imgServiceBanner from 'figma:asset/51e22403a8c34ebbdff4bd2ae4062a63b119e9b5.png';
+//import imgRoom1 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
+//import imgRoom2 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'messageChat' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'myCampaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'viewCampaignDetail' | 'serviceProviders' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'vendorProfile' | 'vendorCampaigns' | 'vendorServices' | 'vendorTransactions' | 'vendorOverview' | 'vendorDrafts' | 'vendorHelp' | 'vendorInvoice' | 'vendorReport' | 'approveBookingRequest' | 'editBooking' | 'corporateDashboard' | 'corporateCampaigns' | 'corporateProfile' | 'corporateCampaignDetail' | 'corporateSchedule' | 'corporateTransactions' | 'corporateVouchers' | 'corporateOverview' | 'corporateDrafts' | 'corporateHelp' | 'corporateGoalsTracker' | 'corporateTransactionsTable';
 
@@ -41,14 +41,14 @@ export function SelectServiceProviderPage({ onNavigate, onShowNotifications, has
       name: 'Standard Room',
       description: 'Spacious Double room with garden view',
       price: 1500,
-      image: imgRoom1
+      image: '/assets/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png'
     },
     {
       id: 2,
       name: 'Deluxe Room',
       description: 'Spacious Double room with garden view',
       price: 2500,
-      image: imgRoom2
+      image: '/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'
     }
   ];
 
@@ -235,7 +235,7 @@ export function SelectServiceProviderPage({ onNavigate, onShowNotifications, has
           {/* Service Banner */}
           <div className="relative mb-6 rounded-lg overflow-hidden h-[200px]">
             <img 
-              src={imgServiceBanner}
+              src={'/assets/51e22403a8c34ebbdff4bd2ae4062a63b119e9b5.png'}
               alt="Cape Town Gateway Weekend" 
               className="w-full h-full object-cover"
             />

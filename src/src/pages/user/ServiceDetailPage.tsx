@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Star } from 'lucide-react@0.487.0';
+//import { Star } from 'lucide-react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import { RoomBookingDialog } from '../../components/dialogs/RoomBookingDialog';
 import { CartDialog } from '../../components/dialogs/CartDialog';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import svgPaths from '../../../imports/svg-ogzm8o1tic';
-import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
-import imgRectangle148 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
-import imgRectangle150 from 'figma:asset/50b9941bb18b04433a8da878785acb0358877f72.png';
-
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport';
+//import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
+//import imgRectangle148 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import imgRectangle150 from 'figma:asset/50b9941bb18b04433a8da878785acb0358877f72.png';
+import type { Page } from '../../types/navigation';
+//type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport';
 
 interface ServiceProvider {
   id: number;
@@ -83,7 +83,7 @@ export function ServiceDetailPage({
   const serviceName = service?.name || 'Cape Town Gateway Weekend';
   const serviceLocation = service?.location || 'Cape Town';
   const serviceCategory = service?.category || 'Accommodation';
-  const serviceImage = service?.image || imgRectangle115;
+  const serviceImage = service?.image || '/assets/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
 
   const rooms: Room[] = [
     {
@@ -91,14 +91,14 @@ export function ServiceDetailPage({
       name: 'Standard Room',
       description: 'Spacious Double room\nwith garden view',
       price: 'R1 500',
-      image: imgRectangle148,
+      image: '/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png',
     },
     {
       id: 2,
       name: 'Deluxe Room',
       description: 'Spacious Double room\nwith garden view',
       price: 'R2 500',
-      image: imgRectangle150,
+      image: '/assets/50b9941bb18b04433a8da878785acb0358877f72.png',
     },
   ];
 

@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import svgPathsOld from '../../../imports/svg-b7s8fpxdl4';
-import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
-import imgRectangle140 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
-import imgRectangle141 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
-import imgEllipse34 from 'figma:asset/e44d5cd688ebcf29969455cdd422abc0ede80023.png';
-import imgEllipse35 from 'figma:asset/4b26bfd150174ba0370dd3bfeef0c80dcb584d88.png';
-import imgEllipse36 from 'figma:asset/d770c99e932e76eba63bc37ec25fdba69d4b4874.png';
-
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport' | 'serviceProviders';
+//import svgPathsOld from '../../../imports/svg-b7s8fpxdl4';
+//import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
+// from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import imgRectangle141 from 'figma:asset/87102388d503206b3b0fb177ad63642a9945094b.png';
+//import imgEllipse34 from 'figma:asset/e44d5cd688ebcf29969455cdd422abc0ede80023.png';
+//import imgEllipse35 from 'figma:asset/4b26bfd150174ba0370dd3bfeef0c80dcb584d88.png';
+//import imgEllipse36 from 'figma:asset/d770c99e932e76eba63bc37ec25fdba69d4b4874.png';
+import type { Page } from '../../types/navigation';
+//type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport' | 'serviceProviders';
 
 interface ViewCampaignDetailPageProps {
   onNavigate: (page: Page) => void;
@@ -27,19 +27,19 @@ export function ViewCampaignDetailPage({ onNavigate, onLogout, onShowNotificatio
       name: 'Alice',
       status: 'Up to date',
       progress: 75,
-      avatar: imgEllipse34,
+      avatar: '/assets/e44d5cd688ebcf29969455cdd422abc0ede80023.png',
     },
     {
       name: 'John',
       status: 'Up to date',
       progress: 100,
-      avatar: imgEllipse35,
+      avatar: '/assets/4b26bfd150174ba0370dd3bfeef0c80dcb584d88.png',
     },
     {
       name: 'Jabulani',
       status: 'Pending',
       progress: 0,
-      avatar: imgEllipse36,
+      avatar: '/assets/d770c99e932e76eba63bc37ec25fdba69d4b4874.png',
     },
   ];
 
@@ -129,7 +129,7 @@ export function ViewCampaignDetailPage({ onNavigate, onLogout, onShowNotificatio
           {/* Hero Image */}
           <div className="mb-6 rounded-[16px] overflow-hidden">
             <img
-              src={imgRectangle115}
+              src={'/assets/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png'}
               alt="Cape Town"
               className="w-full h-[248px] object-cover"
             />
@@ -150,7 +150,7 @@ export function ViewCampaignDetailPage({ onNavigate, onLogout, onShowNotificatio
 
             {/* Seaview Lodge */}
             <div className="flex items-start gap-3 mb-4">
-              <img src={imgRectangle140} alt="Seaview Lodge" className="w-[48px] h-[48px] rounded-[8px] object-cover" />
+              <img src={'/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'} alt="Seaview Lodge" className="w-[48px] h-[48px] rounded-[8px] object-cover" />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-['Inter',sans-serif] text-[16px] font-medium text-black">Seaview Lodge</h3>
@@ -170,7 +170,7 @@ export function ViewCampaignDetailPage({ onNavigate, onLogout, onShowNotificatio
 
             {/* TasteBites Catering */}
             <div className="flex items-start gap-3">
-              <img src={imgRectangle141} alt="TasteBites Catering" className="w-[48px] h-[48px] rounded-[8px] object-cover" />
+              <img src={'/assets/87102388d503206b3b0fb177ad63642a9945094b.png'} alt="TasteBites Catering" className="w-[48px] h-[48px] rounded-[8px] object-cover" />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-['Inter',sans-serif] text-[16px] font-medium text-black">TasteBites Catering</h3>

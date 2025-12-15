@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Info, Plus } from 'lucide-react@0.487.0';
+import { X, Info, Plus } from 'lucide-react';
 
 interface ReplaceContributorDialogProps {
   isOpen: boolean;

@@ -1,16 +1,45 @@
 import { useState } from 'react';
-import { Calendar, AlignJustify } from 'lucide-react@0.487.0';
+import { Calendar, AlignJustify } from 'lucide-react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import svgPathsSearch from '../../../imports/svg-balext371s';
-import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
-import imgRectangle120 from 'figma:asset/61798ab28bf7b93c89df5d8aaefacc49a0f1de1d.png';
-import imgEllipse34 from 'figma:asset/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png';
-import imgEllipse35 from 'figma:asset/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.png';
-import imgEllipse36 from 'figma:asset/14e5699a8399d12dd79e85db4e560c982e664a8c.png';
-import imgEllipse37 from 'figma:asset/7c725d2e94b4ad503c42f0fe908638a5861386b4.png';
+//import svgPathsSearch from '../../../imports/svg-balext371s';
+// import imgRectangle115 from 'figma:asset/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png';
+// import imgRectangle120 from 'figma:asset/61798ab28bf7b93c89df5d8aaefacc49a0f1de1d.png';
+// import imgEllipse34 from 'figma:asset/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png';
+// import imgEllipse35 from 'figma:asset/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.png';
+// import imgEllipse36 from 'figma:asset/14e5699a8399d12dd79e85db4e560c982e664a8c.png';
+// import imgEllipse37 from 'figma:asset/7c725d2e94b4ad503c42f0fe908638a5861386b4.png';
 
-type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaign' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'selectServices' | 'viewCampaignDetail' | 'helpSupport' | 'serviceProviders';
+const imgRectangle115 = new URL(
+  '../../../assets/0e961f9582aec77a34bf07fab9ef41a1b7c868ad.png',
+  import.meta.url
+).href;
+
+const imgRectangle120 = new URL(
+  '../../../assets/61798ab28bf7b93c89df5d8aaefacc49a0f1de1d.png',
+  import.meta.url
+).href;
+
+const imgEllipse34 = new URL(
+  '../../../assets/2fc4b373dd85a6869cf572c5f63c4cccb3cd1ec0.png',
+  import.meta.url
+).href;
+
+const imgEllipse35 = new URL(
+  '../../../assets/6d6828c6accb3c6c74ecaf7d5c9614b0fa026e28.png',
+  import.meta.url
+).href;
+
+const imgEllipse36 = new URL(
+  '../../../assets/14e5699a8399d12dd79e85db4e560c982e664a8c.png',
+  import.meta.url
+).href;
+
+const imgEllipse37 = new URL(
+  '../../../assets/7c725d2e94b4ad503c42f0fe908638a5861386b4.png',
+  import.meta.url
+).href;
+import type { Page } from '../../types/navigation';
 
 interface CampaignsPageProps {
   onNavigate: (page: Page) => void;

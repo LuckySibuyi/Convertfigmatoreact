@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
-import imgCampaign from 'figma:asset/4f3cf17b509ff91a3ab3bb07631643b028d47067.png';
+const imgCampaign = new URL(
+  '../../../assets/4f3cf17b509ff91a3ab3bb07631643b028d47067.png',
+  import.meta.url
+).href;
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 

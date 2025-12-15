@@ -1,7 +1,7 @@
-import { X } from 'lucide-react@0.487.0';
-import { Button } from '../ui/button';
+import { X } from 'lucide-react';
+import { Button } from '../../components/ui/button';
 import { Checkbox } from '../ui/checkbox';
-import { serviceStorage } from '../../utils/serviceStorage';
+import { serviceStorage } from '../../storage/serviceStorage';
 
 interface FilterSheetProps {
   open: boolean;

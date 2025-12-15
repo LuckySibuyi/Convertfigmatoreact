@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
-import svgPathsOld from '../../../imports/svg-8szp5bf6ym';
-import imgRectangle124 from 'figma:asset/09008cafd958ef228fae370333984be464a418ff.png';
-import imgRectangle125 from 'figma:asset/9f1f8c1da3629502bc71901baf4363bbeeeff080.png';
-import imgRectangle126 from 'figma:asset/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png';
+//import svgPathsOld from '../../../imports/svg-8szp5bf6ym';
+//import imgRectangle124 from 'figma:asset/09008cafd958ef228fae370333984be464a418ff.png';
+//import imgRectangle125 from 'figma:asset/9f1f8c1da3629502bc71901baf4363bbeeeff080.png';
+//import imgRectangle126 from 'figma:asset/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
 import { X } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import QRCode from 'qrcode';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'viewCampaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'vendorDashboard' | 'corporateDashboard' | 'selectUserType' | 'serviceProviders';
@@ -75,21 +75,21 @@ export function VouchersPage({ onNavigate, onLogout, onShowNotifications, hasUnr
     {
       id: 1,
       name: 'Cape town weekend',
-      image: imgRectangle124,
+      image: '/assets/09008cafd958ef228fae370333984be464a418ff.png' ,
       savedPercent: '100% saved',
       goal: 'Goal R15 000',
     },
     {
       id: 2,
       name: 'Durban beach hoilday',
-      image: imgRectangle125,
+      image: '/assets/9f1f8c1da3629502bc71901baf4363bbeeeff080.png',
       savedPercent: '15% saved',
       goal: 'Goal R35 000',
     },
     {
       id: 3,
       name: 'Kruger national park',
-      image: imgRectangle126,
+      image: '/assets/e646802d554bb1fa6ce3ceb35bf48236c77c77e1.png' ,
       savedPercent: '76% saved',
       goal: 'Goal R25 000',
     },

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Info } from 'lucide-react@0.487.0';
+import { X, Info } from 'lucide-react';
 
 interface RefundContributorDialogProps {
   isOpen: boolean;

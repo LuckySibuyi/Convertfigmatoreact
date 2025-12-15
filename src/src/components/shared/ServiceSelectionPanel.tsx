@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Sheet, SheetContent } from '../ui/sheet';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { Star, MapPin, X } from 'lucide-react@0.487.0';
-import { toast } from 'sonner@2.0.3';
+import { Sheet, SheetContent } from '../../../components/ui/sheet';
+import { Button } from '../../../components/ui/button';
+//import { Badge } from '../ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
+import { ImageWithFallback } from '../../../components/figma/ImageWithFallback';
+import { Star, MapPin, X } from 'lucide-react';
+import { toast } from 'sonner';
 import { RoomBookingDialog } from '../dialogs/RoomBookingDialog';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft';

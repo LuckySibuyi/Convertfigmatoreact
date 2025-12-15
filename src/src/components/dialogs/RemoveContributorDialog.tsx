@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, AlertTriangle } from 'lucide-react@0.487.0';
+import { X, AlertTriangle } from 'lucide-react';
 
 interface RemoveContributorDialogProps {
   isOpen: boolean;

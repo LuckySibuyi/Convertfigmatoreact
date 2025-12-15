@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { UserSidebar } from '../../components/layout/UserSidebar';
 import svgPaths from '../../../imports/svg-c93d13tepm';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
-import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
-import imgRectangle139 from 'figma:asset/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png';
-import imgRectangle349 from 'figma:asset/a3825e566b26b37668a63ccc1ccf01de1ed9f478.png';
+import { toast } from 'sonner';
+//import imgRectangle137 from 'figma:asset/2d90d1ffe99df5817a38c395c08ec5116a7be340.png';
+//import imgRectangle139 from 'figma:asset/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png';
+//import imgRectangle349 from 'figma:asset/a3825e566b26b37668a63ccc1ccf01de1ed9f478.png';
 
 type Page = 'dashboard' | 'campaigns' | 'vouchers' | 'transactions' | 'profile' | 'overview' | 'draft' | 'howItWorks' | 'campaignDetail' | 'messaging' | 'serviceDetail' | 'selectedServices' | 'createCampaign' | 'manageCampaign' | 'contributors' | 'contributorDetail' | 'campaignSchedule' | 'campaignsHistory' | 'contribute' | 'individualCampaign' | 'groupCampaign' | 'managingCampaigns' | 'helpSupport' | 'saveDraft' | 'selectServices' | 'signup' | 'vendorSignup' | 'otpVerification' | 'signupSuccess' | 'login' | 'forgotPassword' | 'createNewPassword' | 'selectUserType' | 'vendorDashboard' | 'corporateDashboard' | 'serviceProviders';
 
@@ -36,21 +36,21 @@ export function FirstTimeUserDashboard({
       name: 'Blue Water Hotel',
       location: 'Durban',
       category: 'Accommodation',
-      image: imgRectangle349
+      image: '/assets/a3825e566b26b37668a63ccc1ccf01de1ed9f478.png'
     },
     {
       id: 2,
       name: 'Seaview Lodge',
       location: 'Cape Town',
       category: 'Accommodation',
-      image: imgRectangle137
+      image: '/assets/2d90d1ffe99df5817a38c395c08ec5116a7be340.png'
     },
     {
       id: 3,
       name: 'Island Paradise',
       location: 'Zanzibar',
       category: 'Accommodation',
-      image: imgRectangle139
+      image: '/assets/5d9bf658577635a939c9246246e5a8bf87eb8ec2.png'
     }
   ];
 
